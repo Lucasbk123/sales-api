@@ -55,6 +55,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.Property(s => s.UnitPrice)
                 .HasPrecision(10, 2);
 
+            builder.Property(s => s.Discount)
+                .HasPrecision(10, 2);
+
             builder.HasOne(s => s.Sale)
                 .WithMany(s => s.Items)
                 .HasForeignKey(si => si.SaleId);

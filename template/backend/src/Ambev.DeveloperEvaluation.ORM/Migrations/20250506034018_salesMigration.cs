@@ -50,7 +50,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
                     Quantity = table.Column<short>(type: "smallint", nullable: false),
-                    Discount = table.Column<decimal>(type: "numeric", nullable: false),
+                    Discount = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
                     Cancelled = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
