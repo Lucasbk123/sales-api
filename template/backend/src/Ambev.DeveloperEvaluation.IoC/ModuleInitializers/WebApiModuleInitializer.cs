@@ -1,9 +1,6 @@
-﻿using Ambev.DeveloperEvaluation.Common.Security;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Ambev.DeveloperEvaluation.Domain.Strategys;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace Ambev.DeveloperEvaluation.IoC.ModuleInitializers
 {
@@ -14,6 +11,7 @@ namespace Ambev.DeveloperEvaluation.IoC.ModuleInitializers
 
             builder.Services.AddControllers();
             builder.Services.AddHealthChecks();
+            builder.Services.Configure<List<DiscountRangeParametres>>(builder.Configuration.GetSection("DiscountRangeParametres"));
         }
     }
 }
