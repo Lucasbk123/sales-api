@@ -36,7 +36,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<DateTime>("CreateAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("CustomerId")
@@ -46,6 +46,12 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
+
+                    b.Property<long>("Number")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Number"));
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -75,6 +81,10 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     b.Property<decimal>("Discount")
                         .HasPrecision(10, 2)
                         .HasColumnType("numeric(10,2)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<short>("Quantity")
                         .HasColumnType("smallint");

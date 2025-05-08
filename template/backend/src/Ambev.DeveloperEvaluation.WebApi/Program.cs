@@ -9,6 +9,7 @@ using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using FluentValidation;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
 
@@ -52,6 +53,7 @@ public class Program
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+            builder.Services.AddValidatorsFromAssemblies([typeof(ApplicationLayer).Assembly]);
             var app = builder.Build();
             app.UseMiddleware<ValidationExceptionMiddleware>();
 

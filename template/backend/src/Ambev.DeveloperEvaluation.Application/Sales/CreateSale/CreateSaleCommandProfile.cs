@@ -3,12 +3,12 @@ using AutoMapper;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 
-public class CreateSaleProfile : Profile
+public class CreateSaleCommandProfile : Profile
 {
-    public CreateSaleProfile()
+    public CreateSaleCommandProfile()
     {
         CreateMap<CreateSaleCommand, Sale>();
         CreateMap<CreateSaleItemCommand, SaleItem>();
-        CreateMap<Sale, CreateSaleResult>();
+        CreateMap<Sale, CreateSaleCommandResult>();
     }
 }

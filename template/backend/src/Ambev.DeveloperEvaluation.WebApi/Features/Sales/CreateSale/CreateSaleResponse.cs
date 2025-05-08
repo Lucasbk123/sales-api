@@ -2,5 +2,6 @@
 {
     public class CreateSaleResponse
     {
+        public Guid Id { get; set; }
     }
 }

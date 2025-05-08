@@ -6,7 +6,7 @@ public class Sale
 {
     protected Sale()
     {
-        CreateAt = DateTime.UtcNow;
+        CreatedAt = DateTime.UtcNow;
         Status = SaleStatus.Pending;
         Items = [];
         Id = Guid.NewGuid();
@@ -14,9 +14,9 @@ public class Sale
 
     public Guid Id { get; set; }
 
-    public decimal TotalValue { get; private set; }
+    public long Number { get; set; }
 
-    public DateTime CreateAt { get; set; }
+    public decimal TotalValue { get; private set; }
 
     public Guid CustomerId { get; set; }
 
@@ -28,6 +28,8 @@ public class Sale
     public SaleStatus Status { get; set; }
 
     public ICollection<SaleItem> Items { get; private set; }
+
+    public DateTime CreatedAt { get; set; }
 
 
     public static Sale CreateSale(Guid customerId, string customerName, Guid branchId, string branchName)
@@ -76,18 +78,21 @@ public class SaleItem
     {
 
     }
-    public SaleItem(Guid saleId, Guid productId, decimal unitPrice, short quantity, decimal discount)
+    public SaleItem(Guid saleId, Guid productId,string productName, decimal unitPrice, short quantity, decimal discount)
     {
         SaleId = saleId;
         ProductId = productId;
         UnitPrice = unitPrice;
         Quantity = quantity;
         Discount = discount;
+        ProductName = productName;
     }
 
     public Guid SaleId { get; set; }
 
     public Guid ProductId { get; set; }
+
+    public string ProductName { get; set; }
 
     public decimal UnitPrice { get; set; }
 
