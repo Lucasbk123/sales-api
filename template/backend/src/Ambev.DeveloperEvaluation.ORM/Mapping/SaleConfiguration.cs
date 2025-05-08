@@ -36,9 +36,12 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.Property(s => s.CustomerName)
                 .HasMaxLength(100);
 
+            builder.Property(s => s.Number)
+                .ValueGeneratedOnAdd();
+
             builder.HasMany(s => s.Items)
                 .WithOne(s => s.Sale)
-                .HasForeignKey(s =>  s.SaleId)
+                .HasForeignKey(s => s.SaleId)
                 .OnDelete(DeleteBehavior.NoAction);
 
         }
