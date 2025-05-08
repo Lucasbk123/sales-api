@@ -23,11 +23,12 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
 
         public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            var sale = await _context.Sales.FirstOrDefaultAsync(s => s.Id.Equals(id), cancellationToken);
+            var sale = await GetByIdAsync(id,cancellationToken);
 
             if (sale == null)
                 return false;
 
+            _context.SaleItems.RemoveRange(sale.Items);
             _context.Sales.Remove(sale);
             await SaveChangesAsync(cancellationToken);
             return true;
