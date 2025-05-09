@@ -1,8 +1,9 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Enums;
+﻿using Ambev.DeveloperEvaluation.Domain.Common;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
-public class Sale
+public class Sale : BaseEntity
 {
     protected Sale()
     {
@@ -11,8 +12,6 @@ public class Sale
         Items = [];
         Id = Guid.NewGuid();
     }
-
-    public Guid Id { get; set; }
 
     public long Number { get; set; }
 

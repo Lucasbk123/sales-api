@@ -2,13 +2,13 @@
 
 namespace Ambev.DeveloperEvaluation.Domain.Validation
 {
-    public class ProductQuantityValidtor : AbstractValidator<short>
+    public class ProductQuantityValidator : AbstractValidator<short>
     {
         const short QuantityMin = 1;
 
         const short QuantityMax = 20;
 
-        public ProductQuantityValidtor(string productName)
+        public ProductQuantityValidator(string productName)
         {
             RuleFor(quantity => quantity)
                 .GreaterThanOrEqualTo(QuantityMin)
