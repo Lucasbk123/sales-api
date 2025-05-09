@@ -42,7 +42,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         public async Task<(IEnumerable<Sale> Sales, long TotalRows)> GetByPaginedFilterAsync(short page, short pageSize)
         {
 
-            return (await _context.Sales.OrderBy(x => x.TotalValue)
+            return (await _context.Sales.AsNoTrackingWithIdentityResolution()
+                                        .OrderBy(x => x.TotalValue)
                                         .Skip((page - 1) * pageSize)
                                         .Take(pageSize)
                                         .ToListAsync(),
@@ -56,6 +57,6 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             await SaveChangesAsync(cancellationToken);
         }
 
-        private Task SaveChangesAsync(CancellationToken cancellationToken) => _context.SaveChangesAsync();
+        private Task SaveChangesAsync(CancellationToken cancellationToken) => _context.SaveChangesAsync(cancellationToken);
     }
 }

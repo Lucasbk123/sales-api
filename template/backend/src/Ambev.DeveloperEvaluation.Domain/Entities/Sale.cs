@@ -42,6 +42,29 @@ public class Sale : BaseEntity
         };
     }
 
+    public void Update(Guid customerId, string customerName, Guid branchId, string branchName, IEnumerable<SaleItem> saleItems)
+    {
+        CustomerId = customerId;
+        CustomerName = customerName;
+        BranchId = branchId;
+        BranchName = branchName;
+        UpdateAllItem(saleItems);
+    }
+
+
+    private void UpdateAllItem(IEnumerable<SaleItem> saleItems)
+    {
+        var itemsCancel = Items.Where(x => x.Cancelled).ToList();
+
+        Items.Clear();
+
+        foreach (var item in saleItems.Where(x => !itemsCancel.Contains(x)))
+            itemsCancel.Add(item);
+
+        Items = itemsCancel;
+        RecalculateValueTotalItems();
+    }
+
     public void AddItem(SaleItem saleItem)
     {
         Items.Add(saleItem);
@@ -49,7 +72,7 @@ public class Sale : BaseEntity
         TotalValue += saleItem.GetTotalValueWithDiscount();
     }
 
-    public void UpdateItem(Guid prodcutId, decimal unitPrice, short quantity, decimal discount)
+    public void UpdateSaleItem(Guid prodcutId, decimal unitPrice, short quantity, decimal discount)
     {
         var item = Items.First(x => x.ProductId.Equals(prodcutId));
 
@@ -77,7 +100,7 @@ public class SaleItem
     {
 
     }
-    public SaleItem(Guid saleId, Guid productId,string productName, decimal unitPrice, short quantity, decimal discount)
+    public SaleItem(Guid saleId, Guid productId, string productName, decimal unitPrice, short quantity, decimal discount)
     {
         SaleId = saleId;
         ProductId = productId;
@@ -113,6 +136,24 @@ public class SaleItem
     public decimal GetTotalValueWithDiscount() => (UnitPrice * Quantity) - Discount;
 
     public decimal GetTotalValue() => (UnitPrice * Quantity);
+
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(this, obj))
+            return true;
+
+        if (obj is null || GetType() != obj.GetType())
+            return false;
+
+        var saleItem = (SaleItem)obj;
+
+        return ProductId == saleItem.ProductId && SaleId == saleItem.SaleId;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(SaleId, ProductId);
+    }
 
 
     //Entity Framework

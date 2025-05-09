@@ -2,7 +2,7 @@
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
 
-public class GetSaleResponse
+public class GetSaleByIdResponse
 {
     public Guid Id { get; set; }
     public long Number { get; set; }
@@ -17,11 +17,11 @@ public class GetSaleResponse
 
     public SaleStatus Status { get; set; }
 
-    public IEnumerable<GetSaleItemResponse> Items { get; set; }
+    public IEnumerable<GetSaleByIdItemResponse> Items { get; set; }
 
 }
 
-public class GetSaleItemResponse
+public class GetSaleByIdItemResponse
 {
     public Guid ProductId { get; set; }
     public string ProductName { get; set; }
@@ -33,4 +33,6 @@ public class GetSaleItemResponse
     public decimal Discount { get; set; }
 
     public short Quantity { get; set; }
+
+    public bool Cancelled { get; set; }
 }

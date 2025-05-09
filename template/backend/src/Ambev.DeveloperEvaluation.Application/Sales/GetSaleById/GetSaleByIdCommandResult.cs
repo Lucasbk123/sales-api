@@ -1,9 +1,4 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
 {
@@ -38,5 +33,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.GetSaleById
         public decimal Discount { get; set; }
 
         public short Quantity { get; set; }
+
+        public bool Cancelled { get; set; }
     }
 }
