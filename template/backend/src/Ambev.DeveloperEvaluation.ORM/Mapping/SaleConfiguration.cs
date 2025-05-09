@@ -28,7 +28,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
                 .IsRequired();
 
             builder.Property(s => s.BranchName)
-                .HasMaxLength(50);
+                .HasMaxLength(100);
 
             builder.Property(s => s.TotalValue)
                 .HasPrecision(18, 2);
@@ -57,6 +57,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
 
             builder.Property(s => s.UnitPrice)
                 .HasPrecision(10, 2);
+
+            builder.Property(s => s.ProductName)
+                .HasMaxLength(500);
 
             builder.Property(s => s.Discount)
                 .HasPrecision(10, 2);

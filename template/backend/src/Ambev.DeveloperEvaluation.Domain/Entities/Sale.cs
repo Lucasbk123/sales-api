@@ -5,7 +5,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities;
 
 public class Sale : BaseEntity
 {
-    protected Sale()
+    public Sale()
     {
         CreatedAt = DateTime.UtcNow;
         Status = SaleStatus.Pending;
@@ -27,6 +27,8 @@ public class Sale : BaseEntity
     public SaleStatus Status { get; set; }
 
     public ICollection<SaleItem> Items { get; private set; }
+
+    public DateTime? UpdatedAt { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -62,7 +64,14 @@ public class Sale : BaseEntity
             itemsCancel.Add(item);
 
         Items = itemsCancel;
+        UpdatedAt = DateTime.UtcNow;
         RecalculateValueTotalItems();
+    }
+
+    public void Cancel()
+    {
+        Status = SaleStatus.Canceled;
+        UpdatedAt = DateTime.UtcNow;
     }
 
     public void AddItem(SaleItem saleItem)
@@ -79,6 +88,7 @@ public class Sale : BaseEntity
         item.UpdateItem(unitPrice, quantity, discount);
 
         RecalculateValueTotalItems();
+        UpdatedAt = DateTime.UtcNow;
     }
 
     public void CancelItem(Guid productId)
@@ -86,6 +96,7 @@ public class Sale : BaseEntity
         Items.First(x => x.ProductId == productId).Cancel();
 
         RecalculateValueTotalItems();
+        UpdatedAt = DateTime.UtcNow;
     }
 
     private void RecalculateValueTotalItems() => TotalValue = Items
@@ -136,24 +147,6 @@ public class SaleItem
     public decimal GetTotalValueWithDiscount() => (UnitPrice * Quantity) - Discount;
 
     public decimal GetTotalValue() => (UnitPrice * Quantity);
-
-    public override bool Equals(object? obj)
-    {
-        if (ReferenceEquals(this, obj))
-            return true;
-
-        if (obj is null || GetType() != obj.GetType())
-            return false;
-
-        var saleItem = (SaleItem)obj;
-
-        return ProductId == saleItem.ProductId && SaleId == saleItem.SaleId;
-    }
-
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(SaleId, ProductId);
-    }
 
 
     //Entity Framework

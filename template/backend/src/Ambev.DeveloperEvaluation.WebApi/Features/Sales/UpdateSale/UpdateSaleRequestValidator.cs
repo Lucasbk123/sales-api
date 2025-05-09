@@ -10,8 +10,8 @@ public class UpdateSaleRequestValidator : AbstractValidator<UpdateSaleRequest>
     {
         RuleFor(sale => sale.CustomerId).NotEmpty();
         RuleFor(sale => sale.BranchId).NotEmpty();
-        RuleFor(sale => sale.BranchName).NotEmpty();
-        RuleFor(sale => sale.CustomerName).NotEmpty();
+        RuleFor(sale => sale.BranchName).SetValidator(new BranchNameValidator());
+        RuleFor(sale => sale.CustomerName).SetValidator(new CustomerNameValidator());
         RuleFor(sale => sale.Items).NotEmpty();
 
         RuleFor(sale => sale.Items)
@@ -28,7 +28,7 @@ public class UpdateSaleItemRequestValidator : AbstractValidator<UpdateSaleItemRe
     public UpdateSaleItemRequestValidator()
     {
         RuleFor(item => item.ProductId).NotEmpty();
-        RuleFor(item => item.ProductName).NotEmpty();
+        RuleFor(item => item.ProductName).SetValidator(new ProductNameValidator());
         RuleFor(item => item.UnitPrice).GreaterThan(0);
         RuleFor(item => item.Quantity).SetValidator(x => new ProductQuantityValidator(x.ProductName));
     }

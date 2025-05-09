@@ -10,8 +10,8 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
         {
             RuleFor(sale => sale.CustomerId).NotEmpty();
             RuleFor(sale => sale.BranchId).NotEmpty();
-            RuleFor(sale => sale.BranchName).NotEmpty();
-            RuleFor(sale => sale.CustomerName).NotEmpty();
+            RuleFor(sale => sale.BranchName).NotEmpty().MaximumLength(100);
+            RuleFor(sale => sale.CustomerName).NotEmpty().MaximumLength(100);
             RuleFor(sale => sale.Items).NotEmpty();
 
             RuleFor(sale => sale.Items)
@@ -27,7 +27,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
         public UpdateSaleItemCommandValidator()
         {
             RuleFor(item => item.ProductId).NotEmpty();
-            RuleFor(item => item.ProductName).NotEmpty();
+            RuleFor(item => item.ProductName).MaximumLength(500).NotEmpty();
             RuleFor(item => item.UnitPrice).GreaterThan(0);
             RuleFor(item => item.Quantity).SetValidator(x => new ProductQuantityValidator(x.ProductName));
         }
