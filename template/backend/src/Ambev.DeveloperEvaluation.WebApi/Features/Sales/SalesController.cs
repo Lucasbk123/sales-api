@@ -1,6 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.Application.Sales.DeleteSale;
 using Ambev.DeveloperEvaluation.Application.Sales.GetSaleById;
+using Ambev.DeveloperEvaluation.Application.Sales.PatchSaleCancel;
 using Ambev.DeveloperEvaluation.Application.Sales.PatchSaleItem;
 using Ambev.DeveloperEvaluation.Application.Sales.PatchSaleItemCancel;
 using Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
@@ -8,6 +9,7 @@ using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.DeleteSale;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.GetSale;
+using Ambev.DeveloperEvaluation.WebApi.Features.Sales.PatchSaleCancel;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.PatchSaleItem;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.PatchSaleItemCancel;
 using Ambev.DeveloperEvaluation.WebApi.Features.Sales.UpdateSale;
@@ -70,8 +72,6 @@ public class SalesController : BaseController
             Message = "Sale retrived successfully",
             Data = _mapper.Map<GetSaleByIdResponse>(response)
         });
-
-
     }
 
     [HttpPut("{id:guid}")]
@@ -90,6 +90,24 @@ public class SalesController : BaseController
 
         return NoContent();
 
+    }
+
+    [HttpPatch("{id:guid}/cancel")]
+    public async Task<IActionResult> PatcheSaleByIdCancelAsync([FromRoute] Guid id, CancellationToken cancellationToken)
+    {
+        var request = new PatchSaleCancelRequest { Id = id };
+
+        var validator = new PatchSaleCancelValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        var command = _mapper.Map<PatchSaleCancelCommand>(request);
+
+        await _mediator.Send(command, cancellationToken);
+
+        return NoContent();
     }
 
     [HttpPatch("{id:guid}/product/{productId:guid}")]
