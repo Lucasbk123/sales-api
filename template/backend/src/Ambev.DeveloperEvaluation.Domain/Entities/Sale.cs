@@ -76,6 +76,12 @@ public class Sale : BaseEntity
         UpdatedAt = DateTime.UtcNow;
     }
 
+    public void AuthorizeSale()
+    {
+        Status = SaleStatus.Confirmed;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
     public void AddItem(SaleItem saleItem)
     {
         Items.Add(saleItem);

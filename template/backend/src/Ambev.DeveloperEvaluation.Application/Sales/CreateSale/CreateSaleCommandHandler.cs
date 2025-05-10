@@ -30,6 +30,8 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
                 sale.AddItem(new SaleItem(sale.Id, product.ProductId,product.ProductName, product.UnitPrice, product.Quantity, discount));
             }
 
+            sale.AuthorizeSale();
+
             await _saleRepository.CreateAsync(sale,cancellationToken);
 
             return _mapper.Map<CreateSaleCommandResult>(sale);

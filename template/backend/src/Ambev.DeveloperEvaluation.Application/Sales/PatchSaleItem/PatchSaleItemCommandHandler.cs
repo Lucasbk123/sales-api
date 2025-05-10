@@ -1,5 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Domain.Strategies;
+using FluentValidation;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.PatchSaleItem;
@@ -24,6 +25,9 @@ public class PatchSaleItemCommandHandler : IRequestHandler<PatchSaleItemCommand>
 
         if (sale.Items.FirstOrDefault(x => x.ProductId.Equals(command.ProductId)) == null)
             throw new KeyNotFoundException($"product with ID {command.ProductId} not found");
+
+        if(sale.Status == Domain.Enums.SaleStatus.Canceled)
+            throw new ValidationException($"sale with canceled status cannot be changed");
 
         sale.UpdateSaleItem(command.ProductId, command.UnitPrice, command.Quantity,
             _discountStrategy.Calculate(new Product(command.UnitPrice, command.Quantity)));

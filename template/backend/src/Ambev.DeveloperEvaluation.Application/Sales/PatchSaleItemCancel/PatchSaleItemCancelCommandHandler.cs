@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Repositories;
+using FluentValidation;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.PatchSaleItemCancel
@@ -21,6 +22,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.PatchSaleItemCancel
 
             if (sale.Items.FirstOrDefault(x => x.ProductId.Equals(command.ProductId)) == null)
                 throw new KeyNotFoundException($"product with ID {command.ProductId} not found");
+
+            if (sale.Status == Domain.Enums.SaleStatus.Canceled)
+                throw new ValidationException($"sale with canceled status cannot be changed");
 
             sale.CancelItem(command.ProductId);
 
