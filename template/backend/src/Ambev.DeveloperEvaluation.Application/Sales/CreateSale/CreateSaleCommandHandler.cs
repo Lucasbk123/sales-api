@@ -1,6 +1,6 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
-using Ambev.DeveloperEvaluation.Domain.Strategys;
+using Ambev.DeveloperEvaluation.Domain.Strategies;
 using AutoMapper;
 using MediatR;
 

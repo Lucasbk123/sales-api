@@ -1,5 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Repositories;
-using Ambev.DeveloperEvaluation.Domain.Strategys;
+using Ambev.DeveloperEvaluation.Domain.Strategies;
 using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.PatchSaleItem;

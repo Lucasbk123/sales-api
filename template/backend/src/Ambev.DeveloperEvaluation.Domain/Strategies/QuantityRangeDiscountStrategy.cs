@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 
-namespace Ambev.DeveloperEvaluation.Domain.Strategys;
+namespace Ambev.DeveloperEvaluation.Domain.Strategies;
 
 public class QuantityRangeDiscountStrategy : IDiscountStrategy
 {
@@ -23,4 +23,4 @@ public class QuantityRangeDiscountStrategy : IDiscountStrategy
     }
 }
 
-public record DiscountRangeParametres(short Max,short Min,decimal DiscountPercent);
+public record DiscountRangeParametres(short Min,short Max,decimal DiscountPercent);

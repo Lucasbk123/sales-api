@@ -1,4 +1,4 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Strategys;
+﻿using Ambev.DeveloperEvaluation.Domain.Strategies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 

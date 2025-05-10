@@ -1,4 +1,4 @@
-﻿namespace Ambev.DeveloperEvaluation.Domain.Strategys;
+﻿namespace Ambev.DeveloperEvaluation.Domain.Strategies;
 
 public interface IDiscountStrategy
 {
