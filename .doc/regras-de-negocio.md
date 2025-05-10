@@ -3,6 +3,33 @@
 ### 📋 Regras de Negócio
 A seguir estão as regras implementadas na API, com seus respectivos comportamentos e endpoints relacionados:
 
+
+### 💸 Regra de desconto
+
+Para tornar as regras de desconto mais flexíveis, o sistema permite configurá-las diretamente no appsettings da aplicação, conforme exemplo abaixo:
+  ```json
+        "DiscountRangeParametres": [
+          {
+            "Min": 4,
+            "Max": 9,
+            "DiscountPercent": 0.1
+          },
+          {
+            "Min": 10,
+            "Max": 20,
+            "DiscountPercent": 0.2
+          }
+        ]
+  ```
+⚠️ Caso tenha mais de uma correspondência no intervalo configurado o sistema vai considera o maior desconto.
+
+**Campos obrigatórios:**
+
+- `Min:"short" (obrigatório)` – Valor mínimo para a validação dentro do intervalo definido.
+- `Max:"short" (obrigatório)` – Valor máximo para a validação dentro do intervalo definido.
+- `DiscountPercent:"decimal" (obrigatório)` – Valor de desconto em porcentagem, caso haja correspondência no intervalo configurado.
+
+
 ### ✅ 1.Cria Venda
 **Endpoint:** `POST api/sales`
 
