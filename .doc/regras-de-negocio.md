@@ -1,26 +1,4 @@
-### 📦 Descrição do Projeto
-
-Este projeto é uma **API de vendas** que tem como objetivo disponibilizar endpoints para gerenciar vendas, incluindo:
-
-- Criar Venda  
-- Atualizar Venda  
-- Deletar Venda  
-- Atualizar Item da Venda  
-- Cancelar Item da Venda  
-- Cancelar Venda
-- Busca Venda Por Id
-
-As regras de negócio desses métodos serão explicadas na seção [📋Regras de Negócio](/.doc/regras-de-negocio.md).
-
-### 🧰 Tecnologias Utilizadas
-| Tecnologia   | Descrição                        |
-|--------------|----------------------------------|
-| [.NET 8](https://dotnet.microsoft.com) | Framework principal da API |
-| [PostgreSQL](https://www.postgresql.org)      | Banco de dados NoSQL             |
-| [Docker](https://www.docker.com/)       | Containerização de aplicação e banco |
-| [xUnit](https://xunit.net/)  | Testes  |
-| [Swagger](https://swagger.io/)      | Documentação interativa da API   |
-
+[Back to README](../README.md)
 
 ### 📋 Regras de Negócio
 A seguir estão as regras implementadas na API, com seus respectivos comportamentos e endpoints relacionados:
@@ -215,17 +193,3 @@ A seguir estão as regras implementadas na API, com seus respectivos comportamen
   "errors": []
 }
 ```
-<!-- 
-## API Structure
-This section includes links to the detailed documentation for the different API resources:
-- [API General](./docs/general-api.md)
-- [Products API](/.doc/products-api.md)
-- [Carts API](/.doc/carts-api.md)
-- [Users API](/.doc/users-api.md)
-- [Auth API](/.doc/auth-api.md)
--->
-
-## Project Structure
-This section describes the overall structure and organization of the project files and directories. 
-
-See [Project Structure](/.doc/project-structure.md)
