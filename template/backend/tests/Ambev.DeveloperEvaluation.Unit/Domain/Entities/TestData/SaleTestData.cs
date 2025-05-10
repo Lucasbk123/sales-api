@@ -7,26 +7,24 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
     public static class SaleTestData
     {
 
-        private static Faker<SaleItem> SaleItemFakeBase = new Faker<SaleItem>()
+        private readonly static Faker<SaleItem> SaleItemFakeBase = new Faker<SaleItem>()
             .RuleFor(s => s.ProductId, f => f.Random.Guid())
             .RuleFor(s => s.UnitPrice, f => f.Random.Decimal(50, 400))
             .RuleFor(s => s.Quantity, f => f.Random.Short(1, 20))
             .RuleFor(s => s.Discount, f => f.Random.Decimal(10, 40))
             .RuleFor(s => s.ProductName, f => f.Commerce.ProductName());
 
-        private static Faker<Sale> SaleFakerBase = new Faker<Sale>()
+        private readonly static Faker<Sale> SaleFakerBase = new Faker<Sale>()
              .RuleFor(s => s.BranchId, f => f.Random.Guid())
              .RuleFor(s => s.CustomerId, f => f.Random.Guid())
              .RuleFor(s => s.BranchName, f => f.Address.City())
              .RuleFor(s => s.Number, f => f.Random.Int(1, 100))
              .RuleFor(s => s.CustomerName, f => f.Person.FullName)
-             .RuleFor(s => s.CreatedAt, f => f.Date.Past());
+             .RuleFor(s => s.CreatedAt, f => f.Date.Past())
+              .RuleFor(s => s.Status, SaleStatus.Confirmed);
 
         public static Sale GenerateValidSale(int itemsQuantity = 3)
         {
-            SaleFakerBase
-                .RuleFor(s => s.Status, SaleStatus.Confirmed);
-
             var sale = SaleFakerBase.Generate();
 
             SaleItemFakeBase
