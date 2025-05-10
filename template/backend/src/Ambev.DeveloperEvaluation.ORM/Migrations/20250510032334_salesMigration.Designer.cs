@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Ambev.DeveloperEvaluation.ORM.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20250508033610_salesMigration")]
+    [Migration("20250510032334_salesMigration")]
     partial class salesMigration
     {
         /// <inheritdoc />
@@ -36,8 +36,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
 
                     b.Property<string>("BranchName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -65,6 +65,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("numeric(18,2)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
 
                     b.ToTable("Sales", (string)null);
@@ -87,7 +90,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<short>("Quantity")
                         .HasColumnType("smallint");

@@ -36,8 +36,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                     CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
                     CustomerName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     BranchId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BranchName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    BranchName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -51,7 +52,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                 {
                     SaleId = table.Column<Guid>(type: "uuid", nullable: false),
                     ProductId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProductName = table.Column<string>(type: "text", nullable: false),
+                    ProductName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     UnitPrice = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
                     Quantity = table.Column<short>(type: "smallint", nullable: false),
                     Discount = table.Column<decimal>(type: "numeric(10,2)", precision: 10, scale: 2, nullable: false),
