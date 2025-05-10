@@ -1,74 +1,77 @@
-# Developer Evaluation Project
+### 📦 Descrição do Projeto
 
-`READ CAREFULLY`
+Este projeto é uma **Web API de vendas** que tem como objetivo disponibilizar endpoints para gerenciar vendas, incluindo:
 
-## Instructions
-**The test below will have up to 7 calendar days to be delivered from the date of receipt of this manual.**
+- Criar Venda  
+- Atualizar Venda  
+- Deletar Venda  
+- Atualizar Item da Venda  
+- Cancelar Item da Venda  
+- Cancelar Venda
 
-- The code must be versioned in a public Github repository and a link must be sent for evaluation once completed
-- Upload this template to your repository and start working from it
-- Read the instructions carefully and make sure all requirements are being addressed
-- The repository must provide instructions on how to configure, execute and test the project
-- Documentation and overall organization will also be taken into consideration
+As regras de negócio desses métodos serão explicadas na seção [📋Regras de Negócio](#-regras-de-negócio).
 
-## Use Case
-**You are a developer on the DeveloperStore team. Now we need to implement the API prototypes.**
+### 🧰 Tecnologias Utilizadas
+| Tecnologia   | Descrição                        |
+|--------------|----------------------------------|
+| [.NET 8](https://dotnet.microsoft.com) | Framework principal da API |
+| [PostgreSQL](https://www.postgresql.org)      | Banco de dados NoSQL             |
+| [Docker](https://www.docker.com/)       | Containerização de aplicação e banco |
+| [xUnit](https://xunit.net/)  | Testes  |
+| [Swagger](https://swagger.io/)      | Documentação interativa da API   |
 
-As we work with `DDD`, to reference entities from other domains, we use the `External Identities` pattern with denormalization of entity descriptions.
 
-Therefore, you will write an API (complete CRUD) that handles sales records. The API needs to be able to inform:
+### 📋 Regras de Negócio
+A seguir estão as regras implementadas na API, com seus respectivos comportamentos e endpoints relacionados:
 
-* Sale number
-* Date when the sale was made
-* Customer
-* Total sale amount
-* Branch where the sale was made
-* Products
-* Quantities
-* Unit prices
-* Discounts
-* Total amount for each item
-* Cancelled/Not Cancelled
+### ✅ 1.Cria Venda
+**Endpoint:** `POST api/sales`
 
-It's not mandatory, but it would be a differential to build code for publishing events of:
-* SaleCreated
-* SaleModified
-* SaleCancelled
-* ItemCancelled
+**Campos obrigatórios:**
+*  `customerId (obrigatório)` – ID do cliente.
+*  `customerName (obrigatório)` – Nome do cliente.
+*  `branchId (obrigatório)` – ID da filial.
+*  `branchName (obrigatório)` – Nome da filial.
+*  `Item.productId (obrigatório)` – ID do produto.
+*  `Item.productName (obrigatório)` – Nome do produto.
+*  `Item.unitPrice (obrigatório)` – Preço do valor unitário.
+*  `Item.quantity (obrigatório)` –  Quantidade de items do produto.
 
-If you write the code, **it's not required** to actually publish to any Message Broker. You can log a message in the application log or however you find most convenient.
 
-### Business Rules
+**Body:**
+```json
+{
+  "customerName": "Lucas Pereira Alves" ,
+  "customerId": "67c9b6af-37a2-4e35-b378-56710c328fc5",
+  "branchId": "f94e52fc-c1c9-4e40-be7b-15a56048c4e0",
+  "branchName": "Araguaina-To",
+  "items": [
+    {
+      "productId": "f94e52fc-c1c9-4e40-be7b-15a56048c4e0",
+      "productName": "budweiser",
+      "unitPrice": 40,
+      "quantity": 13
+    },
+    {
+      "productId": "f94e52fc-c1c9-4e40-be7b-15a56048c4e0",
+      "productName": "heineken",
+      "unitPrice": 40,
+      "quantity": 8
+    },
+    {
+      "productId": "f94e52fc-c1c9-4e40-be7b-15a56048c4e0",
+      "productName": "skol",
+      "unitPrice": 40,
+      "quantity": 2
+    }
+  ]
+}
+```
+- **Descrição**: Ao tentar criar um novo venda, a API verifica se o usuário já possui um carrinho com status `Ativo`. Se sim, retorna o mesmo carrinho em vez de criar outro.
+- **Endpoint relacionado**:
+  - `POST /carrinho`
+  - `GET /carrinho/ativo`
 
-* Purchases above 4 identical items have a 10% discount
-* Purchases between 10 and 20 identical items have a 20% discount
-* It's not possible to sell above 20 identical items
-* Purchases below 4 items cannot have a discount
-
-These business rules define quantity-based discounting tiers and limitations:
-
-1. Discount Tiers:
-   - 4+ items: 10% discount
-   - 10-20 items: 20% discount
-
-2. Restrictions:
-   - Maximum limit: 20 items per product
-   - No discounts allowed for quantities below 4 items
-
-## Overview
-This section provides a high-level overview of the project and the various skills and competencies it aims to assess for developer candidates. 
-
-See [Overview](/.doc/overview.md)
-
-## Tech Stack
-This section lists the key technologies used in the project, including the backend, testing, frontend, and database components. 
-
-See [Tech Stack](/.doc/tech-stack.md)
-
-## Frameworks
-This section outlines the frameworks and libraries that are leveraged in the project to enhance development productivity and maintainability. 
-
-See [Frameworks](/.doc/frameworks.md)
 
 <!-- 
 ## API Structure
