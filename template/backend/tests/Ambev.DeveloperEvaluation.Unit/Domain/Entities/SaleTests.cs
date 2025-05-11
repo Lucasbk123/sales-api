@@ -93,7 +93,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
 
 
         [Fact(DisplayName = "Sale status should change to cancel when canceled")]
-        public void Given_ConfirmadSale_When_Canceled_ThenStatusShouldBeCanceled()
+        public void Given_PendingSale_When_Canceled_ThenStatusShouldBeCanceled()
         {
             // Arrange
             var sale = SaleTestData.GenerateValidSale();
@@ -104,6 +104,35 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities
             // Assert
             Assert.Equal(SaleStatus.Canceled, sale.Status);
         }
+
+        [Fact(DisplayName = "Sale status should change to confirmed when authorize")]
+        public void Given_PendingSale_When_Authorize_ThenStatusShouldBeconfirmed()
+        {
+            // Arrange
+            var sale = SaleTestData.GenerateValidSale();
+
+            // Act
+            sale.AuthorizeSale(true);
+
+            // Assert
+            Assert.Equal(SaleStatus.Confirmed, sale.Status);
+            Assert.Null(sale.UpdatedAt);
+        }
+
+        [Fact(DisplayName = "Sale status should change to confirmed when authorize and updated modification date")]
+        public void Given_PendingSale_When_AuthorizeAfterCreation_ShouldUpdateStatusAndModifiedDate()
+        {
+            // Arrange
+            var sale = SaleTestData.GenerateValidSale();
+
+            // Act
+            sale.AuthorizeSale(false);
+
+            // Assert
+            Assert.Equal(SaleStatus.Confirmed, sale.Status);
+            Assert.NotNull(sale.UpdatedAt);
+        }
+
 
         [Fact(DisplayName = "Given sale item when canceled then should  recalculate total da sale")]
         public void Given_The_SaleItem_When_Cancelled_TheSaleTotalMustBeRecalculated()

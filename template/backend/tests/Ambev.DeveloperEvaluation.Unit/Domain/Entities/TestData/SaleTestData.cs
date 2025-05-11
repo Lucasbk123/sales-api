@@ -21,7 +21,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.TestData
              .RuleFor(s => s.Number, f => f.Random.Int(1, 100))
              .RuleFor(s => s.CustomerName, f => f.Person.FullName)
              .RuleFor(s => s.CreatedAt, f => f.Date.Past())
-              .RuleFor(s => s.Status, SaleStatus.Confirmed);
+             .RuleFor(s => s.Status, SaleStatus.Pending);
 
         public static Sale GenerateValidSale(int itemsQuantity = 3)
         {
