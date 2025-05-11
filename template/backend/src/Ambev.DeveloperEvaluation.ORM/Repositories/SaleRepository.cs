@@ -39,11 +39,11 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
             return await _context.Sales.Include(x => x.Items).FirstOrDefaultAsync(x => x.Id.Equals(id), cancellationToken);
         }
 
-        public async Task<(IEnumerable<Sale> Sales, long TotalRows)> GetByPaginedFilterAsync(short page, short pageSize)
+        public async Task<(IEnumerable<Sale> Sales, long TotalRows)> GetByPaginedFilterAsync(int page, int pageSize)
         {
 
             return (await _context.Sales.AsNoTrackingWithIdentityResolution()
-                                        .OrderBy(x => x.TotalValue)
+                                        .OrderBy(x => x.Number)
                                         .Skip((page - 1) * pageSize)
                                         .Take(pageSize)
                                         .ToListAsync(),

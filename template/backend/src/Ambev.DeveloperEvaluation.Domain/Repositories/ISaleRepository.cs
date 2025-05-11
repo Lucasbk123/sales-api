@@ -12,5 +12,5 @@ public interface ISaleRepository
 
     Task<Sale?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
 
-    Task<(IEnumerable<Sale> Sales, long TotalRows)> GetByPaginedFilterAsync(short page,short pageSize);
+    Task<(IEnumerable<Sale> Sales, long TotalRows)> GetByPaginedFilterAsync(int page,int pageSize);
 }
