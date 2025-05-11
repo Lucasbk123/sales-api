@@ -30,7 +30,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
                 sale.AddItem(new SaleItem(sale.Id, product.ProductId,product.ProductName, product.UnitPrice, product.Quantity, discount));
             }
 
-            sale.AuthorizeSale();
+            sale.AuthorizeSale(true);
 
             await _saleRepository.CreateAsync(sale,cancellationToken);
 
