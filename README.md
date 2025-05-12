@@ -2,13 +2,14 @@
 
 Este projeto é uma **API de vendas** que tem como objetivo disponibilizar endpoints para gerenciar vendas, incluindo:
 
+- Busca de Vendas Paginadas
+- Busca Venda Por Id
 - Criar Venda  
 - Atualizar Venda  
 - Deletar Venda  
 - Atualizar Item da Venda  
 - Cancelar Item da Venda  
 - Cancelar Venda
-- Busca Venda Por Id
 
 As regras de negócio desses métodos serão explicadas na seção [📋Regras de Negócio](/.doc/regras-de-negocio.md).
 

@@ -177,20 +177,14 @@ A seguir estão as regras implementadas na API, com seus respectivos comportamen
 }
 ```
 - **Descrição**: Ao tentar criar uma nova venda, a Api aplicará o desconto de acordo com a quantidade de itens de cada produto.
-- ⚠️ Caso tenha mais de uma correspondência no intervalo configurado o sistema vai considera o maior desconto.
-  ```json
-        "DiscountRangeParametres": [
-          {
-            "Min": 4,
-            "Max": 9,
-            "DiscountPercent": 0.1
-          },
-          {
-            "Min": 10,
-            "Max": 20,
-            "DiscountPercent": 0.2
-          }
-  ```
+- ⚠️ Validações de Regra de Negócio
+
+As seguintes validações são aplicadas durante o processamento da venda:
+
+| Regra                                          | Descrição                                                              |
+|------------------------------------------------|------------------------------------------------------------------------|
+| Items repetidos                                | A venda não pode ter itens repetidos              |
+
 ### 4. Atualizar Venda
 **Endpoint:** `PUT api/sales/{id}`
 
