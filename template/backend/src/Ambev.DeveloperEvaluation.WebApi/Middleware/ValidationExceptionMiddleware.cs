@@ -8,15 +8,17 @@ namespace Ambev.DeveloperEvaluation.WebApi.Middleware
     public class ValidationExceptionMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly  ILogger<ValidationExceptionMiddleware> _logger;
 
         private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase
         };
 
-        public ValidationExceptionMiddleware(RequestDelegate next)
+        public ValidationExceptionMiddleware(RequestDelegate next, ILogger<ValidationExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -25,13 +27,18 @@ namespace Ambev.DeveloperEvaluation.WebApi.Middleware
             {
                 await _next(context);
             }
-            catch(KeyNotFoundException ex)
+            catch (KeyNotFoundException ex)
             {
                 await HandleKeyNotFoundExceptionAsync(context, ex);
             }
             catch (ValidationException ex)
             {
                 await HandleValidationExceptionAsync(context, ex);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An unexpected error occurred while processing the request");
+                throw;
             }
         }
 
