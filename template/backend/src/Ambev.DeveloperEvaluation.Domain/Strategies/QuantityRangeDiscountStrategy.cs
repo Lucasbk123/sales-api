@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Ambev.DeveloperEvaluation.Domain.Strategies;
 
@@ -17,9 +18,12 @@ public class QuantityRangeDiscountStrategy : IDiscountStrategy
     {
         var discountParametre = _discountRangeParametres
              .Where(x => product.Quantity >= x.Min && product.Quantity <= x.Max)
-             .MaxBy(x => x.DiscountPercent);
+        .MaxBy(x => x.DiscountPercent);
 
-        return discountParametre != null ? (product.UnitPrice * product.Quantity) * discountParametre.DiscountPercent : DiscountPriceDefault;
+        return discountParametre != null ?
+            Math.Round((product.UnitPrice * product.Quantity) 
+            * discountParametre.DiscountPercent, 2, MidpointRounding.AwayFromZero) 
+            : DiscountPriceDefault;
     }
 }
 

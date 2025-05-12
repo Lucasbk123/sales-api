@@ -32,7 +32,7 @@ A seguir estão as regras implementadas na API, com seus respectivos comportamen
 
 
 ### 1. Busca de Vendas Paginadas
-**Endpoint:** `GET api/sales/{id}`
+**Endpoint:** `GET api/sales`
 
 **Campos obrigatórios:**
 *  `page:"int" (obrigatório)` – número da página a ser retornada na consulta de dado.
@@ -177,7 +177,7 @@ A seguir estão as regras implementadas na API, com seus respectivos comportamen
 }
 ```
 - **Descrição**: Ao tentar criar uma nova venda, a Api aplicará o desconto de acordo com a quantidade de itens de cada produto.
-    #### ⚠️ Atenção: A estratégia de desconto utilizará os dados configurados no appsettings. Caso exista sobreposição entre faixas (ranges), o sistema aplicará o maior desconto. Os dados cadastrados são os mesmos solicitados no teste.
+- ⚠️ Caso tenha mais de uma correspondência no intervalo configurado o sistema vai considera o maior desconto.
   ```json
         "DiscountRangeParametres": [
           {
