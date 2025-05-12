@@ -9,6 +9,11 @@ namespace Ambev.DeveloperEvaluation.WebApi.Middleware
     {
         private readonly RequestDelegate _next;
 
+        private static readonly JsonSerializerOptions _jsonSerializerOptions = new()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
         public ValidationExceptionMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -19,6 +24,10 @@ namespace Ambev.DeveloperEvaluation.WebApi.Middleware
             try
             {
                 await _next(context);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                await HandleKeyNotFoundExceptionAsync(context, ex);
             }
             catch (ValidationException ex)
             {
@@ -39,12 +48,22 @@ namespace Ambev.DeveloperEvaluation.WebApi.Middleware
                     .Select(error => (ValidationErrorDetail)error)
             };
 
-            var jsonOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            };
 
-            return context.Response.WriteAsync(JsonSerializer.Serialize(response, jsonOptions));
+            return context.Response.WriteAsync(JsonSerializer.Serialize(response, _jsonSerializerOptions));
+        }
+
+
+        private static Task HandleKeyNotFoundExceptionAsync(HttpContext context, KeyNotFoundException exception)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+
+            var response = new ApiResponse
+            {
+                Success = false,
+                Message = exception.Message
+            };
+            return context.Response.WriteAsync(JsonSerializer.Serialize(response, _jsonSerializerOptions));
         }
     }
 }

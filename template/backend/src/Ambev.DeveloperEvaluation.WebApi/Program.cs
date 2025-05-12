@@ -9,6 +9,8 @@ using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using FluentValidation;
+using System.Text.Json.Serialization;
 
 namespace Ambev.DeveloperEvaluation.WebApi;
 
@@ -23,7 +25,12 @@ public class Program
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
             builder.AddDefaultLogging();
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
+
             builder.Services.AddEndpointsApiExplorer();
 
             builder.AddBasicHealthChecks();
@@ -52,6 +59,7 @@ public class Program
 
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
+            builder.Services.AddValidatorsFromAssemblies([typeof(ApplicationLayer).Assembly]);
             var app = builder.Build();
             app.UseMiddleware<ValidationExceptionMiddleware>();
 

@@ -10,6 +10,9 @@ public class DefaultContext : DbContext
 {
     public DbSet<User> Users { get; set; }
 
+    public DbSet<Sale> Sales { get; set; }
+
+    public DbSet<SaleItem> SaleItems { get; set; }
     public DefaultContext(DbContextOptions<DefaultContext> options) : base(options)
     {
     }
@@ -32,10 +35,7 @@ public class YourDbContextFactory : IDesignTimeDbContextFactory<DefaultContext>
         var builder = new DbContextOptionsBuilder<DefaultContext>();
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 
-        builder.UseNpgsql(
-               connectionString,
-               b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.WebApi")
-        );
+        builder.UseNpgsql(connectionString);
 
         return new DefaultContext(builder.Options);
     }
