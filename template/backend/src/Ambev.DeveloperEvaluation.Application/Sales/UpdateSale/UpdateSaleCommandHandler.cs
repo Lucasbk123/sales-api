@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Events;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Domain.Strategies;
 using MediatR;
@@ -10,11 +11,15 @@ public class UpdateSaleCommandHandler : IRequestHandler<UpdateSaleCommand>
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IDiscountStrategy _discountStrategy;
+    private readonly IPublisher _publisher;
 
-    public UpdateSaleCommandHandler(ISaleRepository saleRepository, IDiscountStrategy discountStrategy)
+    public UpdateSaleCommandHandler(ISaleRepository saleRepository, 
+                                    IDiscountStrategy discountStrategy,
+                                    IPublisher publisher)
     {
         _saleRepository = saleRepository;
         _discountStrategy = discountStrategy;
+        _publisher = publisher;
     }
 
     public async Task Handle(UpdateSaleCommand command, CancellationToken cancellationToken)
@@ -33,6 +38,7 @@ public class UpdateSaleCommandHandler : IRequestHandler<UpdateSaleCommand>
 
         sale.Update(command.CustomerId, command.CustomerName, command.BranchId, command.BranchName, saleitems);
 
+        await _publisher.Publish(new SaleUpdateEvent(sale.Id));
         await _saleRepository.UpdateAsync(sale,cancellationToken);
 
     }

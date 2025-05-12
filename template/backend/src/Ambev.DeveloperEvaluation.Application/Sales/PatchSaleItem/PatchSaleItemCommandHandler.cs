@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Repositories;
+﻿using Ambev.DeveloperEvaluation.Domain.Events;
+using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Domain.Strategies;
 using FluentValidation;
 using MediatR;
@@ -9,11 +10,16 @@ public class PatchSaleItemCommandHandler : IRequestHandler<PatchSaleItemCommand>
 {
     private readonly ISaleRepository _saleRepository;
     private readonly IDiscountStrategy _discountStrategy;
+    private readonly IPublisher _publisher;
 
-    public PatchSaleItemCommandHandler(ISaleRepository saleRepository, IDiscountStrategy discountStrategy)
+    public PatchSaleItemCommandHandler(
+        ISaleRepository saleRepository,
+        IDiscountStrategy discountStrategy,
+        IPublisher publisher)
     {
         _saleRepository = saleRepository;
         _discountStrategy = discountStrategy;
+        _publisher = publisher;
     }
 
     public async Task Handle(PatchSaleItemCommand command, CancellationToken cancellationToken)
@@ -26,12 +32,13 @@ public class PatchSaleItemCommandHandler : IRequestHandler<PatchSaleItemCommand>
         if (sale.Items.FirstOrDefault(x => x.ProductId.Equals(command.ProductId)) == null)
             throw new KeyNotFoundException($"product with ID {command.ProductId} not found");
 
-        if(sale.Status == Domain.Enums.SaleStatus.Canceled)
+        if (sale.Status == Domain.Enums.SaleStatus.Canceled)
             throw new ValidationException($"sale with canceled status cannot be changed");
 
         sale.UpdateSaleItem(command.ProductId, command.UnitPrice, command.Quantity,
             _discountStrategy.Calculate(new Product(command.UnitPrice, command.Quantity)));
 
-        await _saleRepository.UpdateAsync(sale,cancellationToken);
+        await _publisher.Publish(new SaleUpdateEvent(sale.Id));
+        await _saleRepository.UpdateAsync(sale, cancellationToken);
     }
 }
