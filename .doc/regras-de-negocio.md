@@ -260,7 +260,7 @@ As seguintes validações são aplicadas durante o processamento da venda:
 *  `productId:"guid" (obrigatório)` – ID do produto.
 
 ###  8 .Cancelar  Venda  
-**Endpoint:** `Patch api/sales/{id}`
+**Endpoint:** `Patch api/sales/{id}/cancel`
 
 **Campos obrigatórios:**
 *  `Id:"guid" (obrigatório)` – ID da venda.
