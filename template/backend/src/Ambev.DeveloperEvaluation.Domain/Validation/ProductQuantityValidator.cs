@@ -8,13 +8,11 @@ namespace Ambev.DeveloperEvaluation.Domain.Validation
 
         const short QuantityMax = 20;
 
-        public ProductQuantityValidator(string productName)
+        public ProductQuantityValidator()
         {
             RuleFor(quantity => quantity)
                 .GreaterThanOrEqualTo(QuantityMin)
-                .WithMessage(x => $"Produto {productName} deve ter Quantidade superior a 0")
-                .LessThanOrEqualTo(QuantityMax)
-                .WithMessage(x => $"Produto {productName} deve ter Quantidade inferior ou igual a {QuantityMax}");
+                .LessThanOrEqualTo(QuantityMax);
         }
     }
 }

@@ -30,6 +30,6 @@ public class UpdateSaleItemRequestValidator : AbstractValidator<UpdateSaleItemRe
         RuleFor(item => item.ProductId).NotEmpty();
         RuleFor(item => item.ProductName).SetValidator(new ProductNameValidator());
         RuleFor(item => item.UnitPrice).GreaterThan(0);
-        RuleFor(item => item.Quantity).SetValidator(x => new ProductQuantityValidator(x.ProductName));
+        RuleFor(item => item.Quantity).SetValidator(x => new ProductQuantityValidator());
     }
 }

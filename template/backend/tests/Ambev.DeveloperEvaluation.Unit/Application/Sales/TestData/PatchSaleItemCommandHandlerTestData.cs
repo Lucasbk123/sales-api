@@ -10,7 +10,6 @@ public static class PatchSaleItemCommandHandlerTestData
          {
             ProductId = saleItem.ProductId,
             SaleId = saleId,
-            ProductName = saleItem.ProductName,
             Quantity = 10,
             UnitPrice = 25
         };

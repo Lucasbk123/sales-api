@@ -31,7 +31,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
             RuleFor(item => item.ProductId).NotEmpty();
             RuleFor(item => item.ProductName).MaximumLength(500).NotEmpty();
             RuleFor(item => item.UnitPrice).GreaterThan(0);
-            RuleFor(item => item.Quantity).SetValidator(x => new ProductQuantityValidator(x.ProductName));
+            RuleFor(item => item.Quantity).SetValidator(x => new ProductQuantityValidator());
         }
     }
 }

@@ -32,6 +32,6 @@ public class CreateSaleItemValidator : AbstractValidator<CreateSaleItemCommand>
         RuleFor(item => item.ProductId).NotEmpty();
         RuleFor(item => item.ProductName).NotEmpty();
         RuleFor(item => item.UnitPrice).GreaterThan(0);
-        RuleFor(item => item.Quantity).SetValidator(x => new ProductQuantityValidator(x.ProductName));
+        RuleFor(item => item.Quantity).SetValidator(x => new ProductQuantityValidator());
     }
 }
