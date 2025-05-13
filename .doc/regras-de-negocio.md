@@ -224,7 +224,7 @@ As seguintes validações são aplicadas durante o processamento da venda:
 }
 ```
 ### ⚠️ Atenção: 
-* Ao atualizar uma venda, todos os campos do corpo (body) devem ser enviados, inclusive aqueles que não sofreram alteração. Caso nem todos os itens sejam enviados, os itens ausentes serão excluídos. Somente os itens com status "cancelado" não serão excluídos
+* Ao atualizar uma venda, todos os campos do corpo (body) devem ser enviados, inclusive aqueles que não sofreram alteração. Caso nem todos os itens sejam enviados, os itens ausentes serão excluídos. os itens com status "cancelado"  serão excluídos somente se você passa o mesmo no (body).
 * Vendas canceladas não podem ser atualizadas.
 
 ###  5. Deletar Venda

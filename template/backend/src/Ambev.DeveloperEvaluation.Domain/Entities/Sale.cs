@@ -58,7 +58,7 @@ public class Sale : BaseEntity
 
     private void UpdateAllItem(IEnumerable<SaleItem> saleItems)
     {
-        var itemsCancel = Items.Where(x => x.Cancelled).ToList();
+        var itemsCancel = Items.Where(x => x.Cancelled && !saleItems.Any(item => item.ProductId == x.ProductId)).ToList();
 
         Items.Clear();
 
