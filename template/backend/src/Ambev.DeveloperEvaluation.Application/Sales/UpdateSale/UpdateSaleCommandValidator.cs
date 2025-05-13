@@ -12,11 +12,13 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale
             RuleFor(sale => sale.BranchId).NotEmpty();
             RuleFor(sale => sale.BranchName).NotEmpty().MaximumLength(100);
             RuleFor(sale => sale.CustomerName).NotEmpty().MaximumLength(100);
-            RuleFor(sale => sale.Items).NotEmpty();
-
-            RuleFor(sale => sale.Items)
-             .Must(items => !(items.GroupBy(item => item.ProductId).Where(x => x.Count() > ValidationConstant.ItemRepatLimit).Any()))
-             .WithMessage($"O número máximo permitido de produtos repetidos é {ValidationConstant.ItemRepatLimit}");
+            RuleFor(sale => sale.Items).NotEmpty()
+            .DependentRules(() =>
+            {
+                RuleFor(sale => sale.Items)
+                 .Must(items => !(items.GroupBy(item => item.ProductId).Where(x => x.Count() > ValidationConstant.ItemRepatLimit).Any()))
+                 .WithMessage($"O número máximo permitido de produtos repetidos é {ValidationConstant.ItemRepatLimit}");
+            });
 
             RuleForEach(x => x.Items).SetValidator(new UpdateSaleItemCommandValidator());
         }

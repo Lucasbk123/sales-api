@@ -2,9 +2,9 @@
 
 namespace Ambev.DeveloperEvaluation.Domain.Events
 {
-    public class SaleItemCancel : IEvent
+    public class SaleItemCancelEvent : IEvent
     {
-        public SaleItemCancel(Guid saleId, Guid productId)
+        public SaleItemCancelEvent(Guid saleId, Guid productId)
         {
             SaleId = saleId;
             ProductId = productId;
