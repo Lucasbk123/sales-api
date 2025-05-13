@@ -2,8 +2,8 @@
 using Ambev.DeveloperEvaluation.Domain.Events;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using Ambev.DeveloperEvaluation.Domain.Strategies;
+using FluentValidation;
 using MediatR;
-using System.ComponentModel.DataAnnotations;
 
 namespace Ambev.DeveloperEvaluation.Application.Sales.UpdateSale;
 

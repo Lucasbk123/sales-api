@@ -33,7 +33,7 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.PatchSaleItemCancel
 
             sale.CancelItem(command.ProductId);
 
-            await _publisher.Publish(new SaleItemCancel(sale.Id, command.ProductId));
+            await _publisher.Publish(new SaleItemCancelEvent(sale.Id, command.ProductId));
             await _saleRepository.UpdateAsync(sale, cancellationToken);
         }
     }

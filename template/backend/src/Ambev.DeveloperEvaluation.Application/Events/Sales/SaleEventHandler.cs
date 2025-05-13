@@ -7,7 +7,7 @@ namespace Ambev.DeveloperEvaluation.Application.Events.Sales
     public class SaleEventHandler
         : INotificationHandler<SaleCreateEvent>,
           INotificationHandler<SaleUpdateEvent>,
-          INotificationHandler<SaleItemCancel>,
+          INotificationHandler<SaleItemCancelEvent>,
           INotificationHandler<SaleCancelEvent>
     {
 
@@ -24,7 +24,7 @@ namespace Ambev.DeveloperEvaluation.Application.Events.Sales
             await Task.CompletedTask;
         }
 
-        public async Task Handle(SaleItemCancel notification, CancellationToken cancellationToken)
+        public async Task Handle(SaleItemCancelEvent notification, CancellationToken cancellationToken)
         {
              _logger.LogInformation($"Item id:{notification.ProductId} has been cancelled from sale id:{notification.SaleId}");
             await Task.CompletedTask;
